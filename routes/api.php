@@ -39,9 +39,12 @@ Route::post('furigana', function (Request $request) {
     {
         foreach ($kal['kalimat'] as $j => $k)
         {
+            $encode = str_replace(' ', '+', $k);
             $limelight = new Limelight();
-            $results = $limelight->parse($k);
-            $kalimat[$i]['kalimat'][$j] = $results->string('furigana');
+            $results = $limelight->parse($encode);
+            // dd($encode, $k);
+            $return = urldecode($results->string('furigana'));
+            $kalimat[$i]['kalimat'][$j] = $return;
         }
     }
 
